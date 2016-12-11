@@ -1,0 +1,4 @@
+#BlueJ class context
+comment0.params=plyr1\ plyr2\ set\ s_p\ s_s\ Ad1\ Ad2\ pt1\ pt2\ g\ g1\ g2
+comment0.target=void\ main(java.lang.String,\ java.lang.String,\ int,\ int[],\ int[],\ int,\ int,\ int,\ int,\ int,\ int,\ int)
+numComments=1

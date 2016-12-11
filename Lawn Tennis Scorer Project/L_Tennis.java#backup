@@ -1,0 +1,149 @@
+import java.util.*;
+public class L_Tennis
+{
+    private static String plyr1="",plyr2="";
+    private static int g1=0,g2=0;
+    private static int set=0;
+    private static int s_s[] = new int[1000000];
+    private static int s_p[] = new int[3];
+    static Scanner sc = new Scanner(System.in);
+    static loading lo = new loading();
+    public static void Score()throws InterruptedException
+    {
+        lo.main();
+        for(int i=0;i<1000000;i++)
+            s_s[i]=0;
+        L_Tennis ob = new L_Tennis();
+        Score_board sb =new Score_board();
+        //System.out.println("Enter weather the players are Male or Female.");
+        //g=(sc.next()).charAt(0);
+        System.out.println("Enter the number of set to be played.");
+        set=sc.nextInt();
+        int ad1=0,Pt=0,pT=0,J=0;
+        if(set!=0)
+        {
+            System.out.println("\fEnter the name of two players.");
+            plyr1=sc.next();
+            plyr2=sc.next();
+        }
+        else
+            System.out.println("\f");
+        for(int i=0;i<set;i++)
+        {
+            boolean loop=true;
+            boolean game=false;
+            g1=0;g2=0;
+            for(int j=1;loop||game;j++)
+            {
+                int f[]= new int[2];
+                //int d1=0,d2=0;
+                //int d=0;
+                int Ad1=0,Ad2=0;
+                int pt1=0,pt2=0;
+                for(int l=0;l<2;l++)
+                    s_p[l]=0;
+                for(int k=1;true;k++)
+                {
+                    sb.main(plyr1,plyr2,set,s_p,s_s,Ad1,Ad2,pt1,pt2,j);
+                    String in="";
+                    System.out.println("Type player number then what has he done which is :-\nIf the player has missed type 'm'\nIf the player has double fault type 'f'\nIf the player has done ace type 'a'\nIf the player has hit with double bounce then type 'd'");
+                    in=sc.next();
+                    for(;!(in.length()>2);)
+                    {
+                        if(!(in.length()>=2))
+                        {
+                            System.out.println("Wrong input please type again.");
+                            in=sc.next();
+                        }
+                        else 
+                            break;
+                    }
+                    if(in.charAt(0)=='1')//plyr 2 winning
+                    {
+                        char ch = in.charAt(1);
+                        if(ch!=' ')//for anything
+                        {
+                            if(s_p[1]==30)//if score of plyr2 is 30
+                            {
+                                s_p[1]=40;
+                                ++pt2;
+                            }
+                            else
+                            {
+                                s_p[1]+=15;
+                                ++pt2;
+                            }
+                            if(s_p[1]==40&&(s_p[0]==0||s_p[0]==15))//if score of plyr 2 is 40 and plyr 1 is 0 or 15 then plyr 2 wins
+                            {
+                                ++g2;
+                                break;
+                            }
+                        }
+                    }
+                    else if(in.charAt(0)=='2')//plyr 1 winning
+                    {
+                        char ch = in.charAt(1);
+                        if(ch!=' ')//for anything
+                        {
+                            if(s_p[0]==30)//if score of plyr1 is 30
+                            {
+                                s_p[0]=40;
+                                ++pt1;
+                            }
+                            else
+                            {
+                                s_p[0]+=15;
+                                ++pt1;
+                            }
+                            if(s_p[0]==40&&(s_p[1]==0||s_p[1]==15))//if score of plyr 1 is 40 and plyr 2 is 0 or 15 then plyr 2 wins
+                            {
+                                ++g1;
+                                break;
+                            }
+                        }
+                    }
+                    if(s_p[0]>40&&s_p[0]-s_p[1]==15)
+                    {
+                        ++Ad1;
+                    }
+                    else if(s_p[1]>40&&s_p[1]-s_p[0]==15)
+                        ++Ad2;
+                    else //if(s_p[0]==s_p[1])
+                    {
+                        Ad1=0;
+                        Ad2=0;
+                    }
+                    if(Ad1==2&&pt1==2)
+                    {
+                        ++g1;
+                        break;
+                    }
+                    else if(Ad2==2&&pt2==2)
+                    {
+                        ++g2;
+                        break;
+                    }
+                    if(pt1>=2||pt2>=2)
+                    {
+                        pt1=0;pt2=0;
+                    }
+                    if(g2>=1||g1>=1)
+                        break;
+                }
+                if(j>=6)
+                    loop=false;
+                if(j>=6&&g1-g2==2||g2-g1==2)
+                    game=false;
+                ad1=ad;
+                Pt=pt1;
+                pT=pt2;
+                J=j;
+            }
+            if(g1>g2)
+                s_s[i]=1;
+            if(g2>g1)
+                s_s[i]=2;
+        }
+        sb.main(plyr1,plyr2,set,s_p,s_s,ad1,Pt,pT,J);
+    }
+}
